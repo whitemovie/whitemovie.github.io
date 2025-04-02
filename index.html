@@ -53,71 +53,86 @@
         }
     </style>
     <script>
-        // Movie list with IMDb IDs
-        const movies = {
-            "The Lord of the Rings": "tt0167260",
-            "Gladiator": "tt0172495",
-            "The Dark Knight": "tt0468569",
-            "Avatar": "tt0499549",
-            "Inception": "tt1375666",
-            "The Avengers": "tt0848228",
-            "The Social Network": "tt1285016",
-            "Pulp Fiction": "tt0110912",
-            "The Matrix": "tt0133093",
-            "Interstellar": "tt0816692",
-            "Avengers: Endgame": "tt4154796",
-            "Fight Club": "tt0137523",
-            "Black Panther": "tt1825683",
-            "Spirited Away": "tt0245429",
-            "The Departed": "tt0407887",
-            "Shutter Island": "tt1130884",
-            "Parasite": "tt6751668",
-            "Mad Max: Fury Road": "tt1392190",
-            "The Wolf of Wall Street": "tt0993846",
-            "The Hunger Games": "tt1392170",
-            "Shaitaan": "tt27744786",
-        };
+        document.addEventListener("DOMContentLoaded", function() {
+            const movies = {
+                "The Lord of the Rings": "tt0167260",
+                "Gladiator": "tt0172495",
+                "The Dark Knight": "tt0468569",
+                "Avatar": "tt0499549",
+                "Inception": "tt1375666",
+                "The Avengers": "tt0848228",
+                "The Social Network": "tt1285016",
+                "Pulp Fiction": "tt0110912",
+                "The Matrix": "tt0133093",
+                "Interstellar": "tt0816692",
+                "Avengers: Endgame": "tt4154796",
+                "Fight Club": "tt0137523",
+                "Black Panther": "tt1825683",
+                "Spirited Away": "tt0245429",
+                "The Departed": "tt0407887",
+                "Shutter Island": "tt1130884",
+                "Parasite": "tt6751668",
+                "Mad Max: Fury Road": "tt1392190",
+                "The Wolf of Wall Street": "tt0993846",
+                "The Hunger Games": "tt1392170",
+                "Shaitaan": "tt27744786",
+                "Hit Man": "tt20215968",
+                "Scoop": "tt21279806",
+                "Daughters": "tt12336480",
+                "Carry-On": "tt21382296",
+                "Society of the Snow": "tt16277242",
+                "Maestro": "tt5535276",
+                "The Killer": "tt1136617",
+                "They Cloned Tyrone": "tt9873892",
+                "It's What's Inside": "tt14577874",
+                "The Greatest Night in Pop": "tt30796448",
+                "The Deepest Breath": "tt24132732",
+                "Nimona": "tt19500164",
+                "Will & Harper": "tt30321133",
+                "Godzilla Minus One": "tt23289160",
+                "Dungeons & Dragons: Honor Among Thieves": "tt2906216",
+                "Anyone but You": "tt26047818"
+            };
 
-        function toggleMode() {
-            let body = document.body;
-            let button = document.getElementById("modeButton");
-            if (body.style.backgroundColor === "white") {
-                body.style.backgroundColor = "gray";
-                body.style.color = "white";
-                button.textContent = "Day Mode";
-            } else {
-                body.style.backgroundColor = "white";
-                body.style.color = "black";
-                button.textContent = "Night Mode";
-            }
-        }
-
-        function searchItem() {
-            let query = document.getElementById("searchBox").value.trim().toLowerCase();
-            let inventory = document.getElementById("inventory");
-            inventory.innerHTML = ""; // Clear previous results
-            let found = false;
-
-            for (let movie in movies) {
-                if (movie.toLowerCase().includes(query)) {
-                    found = true;
-                    let imdbId = movies[movie];
-                    
-                    // Create the movie result
-                    let movieDiv = document.createElement("div");
-                    movieDiv.classList.add("inventory-item");
-                    movieDiv.innerHTML = `
-                        ${movie}
-                        <a href="https://vidsrc.xyz/embed/movie/${imdbId}" target="_blank" class="stream-button">Stream</a>
-                    `;
-                    
-                    inventory.appendChild(movieDiv);
+            function toggleMode() {
+                let body = document.body;
+                let button = document.getElementById("modeButton");
+                if (body.style.backgroundColor === "white") {
+                    body.style.backgroundColor = "#121212";
+                    body.style.color = "white";
+                    button.textContent = "Day Mode";
+                } else {
+                    body.style.backgroundColor = "white";
+                    body.style.color = "black";
+                    button.textContent = "Night Mode";
                 }
             }
 
-            // Show results only if movies are found
-            inventory.style.display = found ? "block" : "none";
-        }
+            function searchItem() {
+                let query = document.getElementById("searchBox").value.trim().toLowerCase();
+                let inventory = document.getElementById("inventory");
+                inventory.innerHTML = ""; 
+                let found = false;
+
+                for (let movie in movies) {
+                    if (movie.toLowerCase().includes(query)) {
+                        found = true;
+                        let imdbId = movies[movie];
+                        let movieDiv = document.createElement("div");
+                        movieDiv.classList.add("inventory-item");
+                        movieDiv.innerHTML = `
+                            ${movie}
+                            <a href="https://vidsrc.me/embed/movie/${imdbId}" target="_blank" class="stream-button">Stream</a>
+                        `;
+                        inventory.appendChild(movieDiv);
+                    }
+                }
+                inventory.style.display = found ? "block" : "none";
+            }
+
+            document.getElementById("searchBox").addEventListener("keyup", searchItem);
+            document.getElementById("modeButton").addEventListener("click", toggleMode);
+        });
     </script>
 </head>
 <body>
@@ -128,7 +143,6 @@
         <button onclick="searchItem()">Search</button>
         <div id="inventory" class="inventory"></div>
     </main>
-    <button id="modeButton" class="toggle-button" onclick="toggleMode()">Night Mode</button>
+    <button id="modeButton" class="toggle-button">Night Mode</button>
 </body>
 </html>
-
